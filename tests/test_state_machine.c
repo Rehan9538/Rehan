@@ -13,8 +13,13 @@
 #include "bms_diagnostics.h"
 #include "state_machine.h"
 
-static void state_test_setup(void) {}
-static void state_test_cleanup(void) {}
+static int state_test_setup(void) {
+    return 0;
+}
+
+static int state_test_cleanup(void) {
+    return 0;
+}
 
 /**
  * STATE_UT_001: State Machine Transitions (HEALTHY → SUSPECT → FAULTY)

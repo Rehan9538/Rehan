@@ -12,8 +12,13 @@
 #include <CUnit/Basic.h>
 #include "config_loader.h"
 
-static void config_test_setup(void) {}
-static void config_test_cleanup(void) {}
+static int config_test_setup(void) {
+    return 0;
+}
+
+static int config_test_cleanup(void) {
+    return 0;
+}
 
 /**
  * CONFIG_UT_001: Configuration Load and Validation
