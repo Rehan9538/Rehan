@@ -12,8 +12,8 @@
 #include <CUnit/Basic.h>
 #include "calibration.h"
 
-static void reset_test_setup(void) {}
-static void reset_test_cleanup(void) {}
+static int reset_test_setup(void) { return 0; }
+static int reset_test_cleanup(void) { return 0; }
 
 /**
  * RESET_UT_001: Calibration Offset Reset - State Recovery

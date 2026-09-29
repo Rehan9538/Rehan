@@ -13,8 +13,8 @@
 #include "bms_diagnostics.h"
 #include "drift_detector.h"
 
-static void drift_test_setup(void) {}
-static void drift_test_cleanup(void) {}
+static int drift_test_setup(void) { return 0; }
+static int drift_test_cleanup(void) { return 0; }
 
 /**
  * DRIFT_UT_001: Out-of-Specification (OOS) Drift Detection

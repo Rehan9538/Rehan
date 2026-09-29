@@ -28,6 +28,9 @@ extern CU_SuiteInfo mqtt_suite;
  * ============================================================================ */
 
 int main(int argc, char *argv[]) {
+    (void)argc;
+    (void)argv;
+
     printf("\n");
     printf("╔════════════════════════════════════════════════════════════════╗\n");
     printf("║   BMS Diagnostic Engine - Unit Test Suite                     ║\n");
@@ -45,40 +48,17 @@ int main(int argc, char *argv[]) {
     /* Add test suites to registry */
     printf("[INFO] Registering test suites...\n");
     
-    int added = 0;
-    
-    if (CU_add_suite(&freeze_suite) != NULL) {
-        printf("[OK] Freeze Detection Tests (4 tests)\n");
-        added++;
+    int added = 8;
+    if (CU_register_nsuites(8, &freeze_suite, &drift_suite, &outlier_suite,
+                            &state_suite, &edge_suite, &config_suite,
+                            &reset_suite, &mqtt_suite) != CUE_SUCCESS) {
+        fprintf(stderr, "[ERROR] Failed to register test suites: %s\n",
+                CU_get_error_msg());
+        CU_cleanup_registry();
+        return EXIT_FAILURE;
     }
-    if (CU_add_suite(&drift_suite) != NULL) {
-        printf("[OK] Drift Detection Tests (3 tests)\n");
-        added++;
-    }
-    if (CU_add_suite(&outlier_suite) != NULL) {
-        printf("[OK] Outlier Filter Tests (1 test)\n");
-        added++;
-    }
-    if (CU_add_suite(&state_suite) != NULL) {
-        printf("[OK] State Machine Tests (1 test)\n");
-        added++;
-    }
-    if (CU_add_suite(&edge_suite) != NULL) {
-        printf("[OK] Edge Case Tests (3 tests)\n");
-        added++;
-    }
-    if (CU_add_suite(&config_suite) != NULL) {
-        printf("[OK] Configuration Tests (1 test)\n");
-        added++;
-    }
-    if (CU_add_suite(&reset_suite) != NULL) {
-        printf("[OK] Reset/Recovery Tests (1 test)\n");
-        added++;
-    }
-    if (CU_add_suite(&mqtt_suite) != NULL) {
-        printf("[OK] MQTT Reporting Tests (2 tests)\n");
-        added++;
-    }
+
+    printf("[OK] Registered all %d test suites\n", added);
     
     printf("\n[INFO] %d test suites registered\n\n", added);
     

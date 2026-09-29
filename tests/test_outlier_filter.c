@@ -13,8 +13,8 @@
 #include "bms_diagnostics.h"
 #include "outlier_filter.h"
 
-static void outlier_test_setup(void) {}
-static void outlier_test_cleanup(void) {}
+static int outlier_test_setup(void) { return 0; }
+static int outlier_test_cleanup(void) { return 0; }
 
 /**
  * OUTLIER_UT_001: Transient Spike Filtered - Not Counted as Fault

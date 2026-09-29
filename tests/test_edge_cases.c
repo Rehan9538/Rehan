@@ -12,8 +12,8 @@
 #include <CUnit/Basic.h>
 #include "bms_diagnostics.h"
 
-static void edge_test_setup(void) {}
-static void edge_test_cleanup(void) {}
+static int edge_test_setup(void) { return 0; }
+static int edge_test_cleanup(void) { return 0; }
 
 /**
  * EDGE_UT_001: Startup Phase - No False Alarms with Insufficient Data
