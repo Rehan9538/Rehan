@@ -82,7 +82,7 @@ jobs:
 
       - name: Upload test report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report-${{ matrix.cc }}-${{ matrix.build_type }}
           path: build/test_report.txt
@@ -232,7 +232,7 @@ jobs:
 
       - name: Upload coverage report as artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: build/coverage_report/
@@ -271,7 +271,7 @@ jobs:
             src/ include/ tests/ 2>&1 | tee security_report.txt
 
       - name: Upload security report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-report
           path: security_report.txt
@@ -288,7 +288,7 @@ jobs:
 
       - name: Download test artifacts
         if: always()
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         continue-on-error: true
 
       - name: Generate comprehensive summary
