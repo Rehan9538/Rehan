@@ -80,6 +80,7 @@ if(ENABLE_TESTS)
         tests/test_config.c
         tests/test_reset.c
         tests/test_mqtt.c
+        tests/test_runner.c
     )
     
     # Create test executable
