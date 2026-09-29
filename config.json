@@ -1,0 +1,101 @@
+{
+  "description": "BMS Sensor Plausibility & Cross-Calibration Diagnostic Configuration",
+  "version": "1.0.0",
+  "date": "2026-09-29",
+  "freeze_detection": {
+    "enabled": true,
+    "stdev_threshold_celsius": 0.05,
+    "neighbor_variation_threshold_celsius": 0.5,
+    "window_duration_ms": 1000,
+    "persistence_duration_ms": 150,
+    "comment": "Detects frozen sensors with no variation despite neighbor changes"
+  },
+  "drift_detection": {
+    "enabled": true,
+    "tolerance_celsius": 1.5,
+    "persistence_ms": 110,
+    "spatial_gradient_tolerance_celsius": 0.2,
+    "min_neighbors_for_baseline": 2,
+    "comment": "Detects out-of-specification calibration drift vs neighbor baseline"
+  },
+  "outlier_filtering": {
+    "enabled": true,
+    "threshold_sigma": 3.0,
+    "min_baseline_samples": 30,
+    "comment": "Filters transient spikes (>3σ) that don't reflect true fault"
+  },
+  "state_machine": {
+    "enabled": true,
+    "suspect_threshold_ms": 100,
+    "faulty_threshold_ms": 500,
+    "recovery_threshold_ms": 200,
+    "comment": "Implements hysteresis to prevent oscillation between states"
+  },
+  "startup_phase": {
+    "enabled": true,
+    "duration_ms": 60000,
+    "min_samples_for_confidence": 30,
+    "comment": "No false alarms during cold-start with insufficient data"
+  },
+  "data_handling": {
+    "stale_threshold_ms": 5000,
+    "max_gap_tolerance_ms": 500,
+    "buffer_size": 100,
+    "time_tolerance_ms": 100,
+    "comment": "Handles missing/out-of-order data gracefully"
+  },
+  "mqtt": {
+    "enabled": true,
+    "broker_endpoint": "test.iot.us-east-1.amazonaws.com",
+    "topic": "bms/diagnostics/faults",
+    "qos": 1,
+    "queue_max_size": 100,
+    "max_queue_memory_bytes": 10240,
+    "offline_queuing_enabled": true,
+    "certificate_path": "/etc/bms/certs/client.crt",
+    "key_path": "/etc/bms/certs/client.key",
+    "ca_path": "/etc/bms/certs/ca.crt",
+    "comment": "AWS IoT Core integration with offline queuing"
+  },
+  "sensors": {
+    "count": 3,
+    "list": [
+      {
+        "id": "TEMP_A1",
+        "type": "temperature",
+        "unit": "celsius",
+        "zone": "A",
+        "neighbors": ["TEMP_A2", "TEMP_A3"],
+        "enabled": true
+      },
+      {
+        "id": "TEMP_A2",
+        "type": "temperature",
+        "unit": "celsius",
+        "zone": "A",
+        "neighbors": ["TEMP_A1", "TEMP_A3"],
+        "enabled": true
+      },
+      {
+        "id": "TEMP_A3",
+        "type": "temperature",
+        "unit": "celsius",
+        "zone": "A",
+        "neighbors": ["TEMP_A1", "TEMP_A2"],
+        "enabled": true
+      }
+    ],
+    "comment": "Configure sensor topology, IDs, and compatible neighbors"
+  },
+  "logging": {
+    "enabled": true,
+    "audit_log_size": 100,
+    "level": "INFO",
+    "comment": "Audit trail for compliance and debugging"
+  },
+  "performance": {
+    "max_sensors": 32,
+    "buffer_pool_size": 5,
+    "comment": "Memory and performance constraints for embedded systems"
+  }
+}

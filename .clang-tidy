@@ -1,0 +1,80 @@
+---
+# Clang-Tidy Configuration for BMS Diagnostics Engine
+# Defines static analysis checks and linting rules
+
+# Checks to enable
+Checks: >
+  -*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  clang-analyzer-*,
+  -clang-analyzer-unix.MallocSizeof,
+  -clang-analyzer-core.NullDereference,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-goto,
+  -cppcoreguidelines-init-variables,
+  -cppcoreguidelines-owning-memory,
+  google-*,
+  -google-readability-namespace-comments,
+  -google-runtime-int,
+  performance-*,
+  portability-*,
+  readability-*,
+  -readability-function-cognitive-complexity,
+  safety-*,
+  misc-*,
+  -misc-unused-parameters,
+  cert-*
+
+# Headers to check
+HeaderFilterRegex: '.*'
+
+# Analysis options
+AnalyzeTemporaryDtors: true
+
+# Bugprone options
+BugproneUndefinedMemoryManipulationValueType: 'std::array'
+BugproneVirtualNearMiss:
+  AssumeSingleDispatch: false
+
+# ClangTidy options
+CheckOptions:
+  - key: readability-identifier-naming.ClassCase
+    value: PascalCase
+  - key: readability-identifier-naming.FunctionCase
+    value: snake_case
+  - key: readability-identifier-naming.VariableCase
+    value: snake_case
+  - key: readability-identifier-naming.ConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
+  - key: readability-implicit-bool-conversion.AllowIntegerConditions
+    value: 'true'
+  - key: readability-simplify-boolean-expr.ChainedConditionalReturn
+    value: 'false'
+  - key: readability-magic-numbers.GolombRiceEncoding
+    value: 'true'
+  - key: readability-magic-numbers.IgnoredIntegerValues
+    value: '0;1;2;-1'
+  - key: readability-magic-numbers.IgnoredFloatingPointValues
+    value: '0.0;1.0;-1.0'
+  - key: cppcoreguidelines-macro-usage.CheckCapsOnly
+    value: 'true'
+  - key: performance-move-const-arg.CheckTriviallyCopyableMove
+    value: 'true'
+  - key: performance-type-promotion-in-math-fn.IncludeStyle
+    value: llvm
+  - key: portability-simd-intrinsics.Suggest
+    value: 'true'
+
+# Warnings as errors
+WarningsAsErrors: >
+  bugprone-*,
+  clang-analyzer-*,
+  performance-*,
+  portability-*,
+  safety-*
+
+# Use fixes
+UseColor: true
