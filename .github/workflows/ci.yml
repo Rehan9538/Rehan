@@ -157,8 +157,7 @@ jobs:
             libcunit1 \
             libcunit1-dev \
             lcov \
-            gcc \
-            gcov
+            gcc
 
       - name: Create build directory
         run: mkdir -p build
