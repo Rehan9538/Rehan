@@ -171,6 +171,9 @@ int bms_diagnostics_shutdown(void) {
 }
 
 int bms_ingest_reading(const char *sensor_id, double value, uint64_t timestamp_ms) {
+    (void)value;           /* TODO: Use in rolling window */
+    (void)timestamp_ms;    /* TODO: Use in timestamp tracking */
+    
     if (!g_engine.initialized || !sensor_id) {
         return -1;
     }

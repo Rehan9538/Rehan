@@ -75,11 +75,15 @@ int rolling_window_destroy(rolling_window_t window) {
 
 int rolling_window_add_sample(rolling_window_t window, double value,
                               uint64_t timestamp_ms) {
+    (void)value;           /* TODO: Use in circular buffer */
+    (void)timestamp_ms;    /* TODO: Use for time-based expiration */
+    
     if (!window) {
         return -1;
     }
     
     rolling_window_internal_t *w = (rolling_window_internal_t *)window;
+    (void)w;               /* TODO: Use in implementation */
     
     /* TODO: Remove samples outside time window */
     /* TODO: Handle circular buffer wrap */

@@ -79,11 +79,16 @@ int drift_detector_analyze(drift_detector_t detector, double sensor_value,
                           const double *neighbor_values,
                           uint32_t neighbor_count, uint64_t timestamp_ms,
                           drift_result_t *result) {
+    (void)sensor_value;    /* TODO: Use for baseline comparison */
+    (void)timestamp_ms;    /* TODO: Use for persistence timing */
+    
     if (!detector || !neighbor_values || !result) {
         return -1;
     }
     
     drift_detector_internal_t *d = (drift_detector_internal_t *)detector;
+    (void)d;               /* TODO: Use in implementation */
+    (void)neighbor_count;  /* TODO: Use for baseline calculation */
     
     /* TODO: Count valid neighbors */
     /* TODO: Calculate median/mean of valid neighbors */

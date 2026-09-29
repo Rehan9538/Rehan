@@ -72,11 +72,15 @@ int outlier_filter_destroy(outlier_filter_t filter) {
 
 int outlier_filter_add_sample(outlier_filter_t filter, double value,
                               bool is_excluded) {
+    (void)value;           /* TODO: Use in baseline accumulation */
+    (void)is_excluded;     /* TODO: Use in sample filtering */
+    
     if (!filter) {
         return -1;
     }
     
     outlier_filter_internal_t *f = (outlier_filter_internal_t *)filter;
+    (void)f;               /* TODO: Use in implementation */
     
     /* TODO: Add sample to buffer */
     /* TODO: Recalculate baseline (mean, std_dev) if not excluded */
@@ -86,6 +90,8 @@ int outlier_filter_add_sample(outlier_filter_t filter, double value,
 
 int outlier_filter_detect(outlier_filter_t filter, double value,
                           outlier_result_t *result) {
+    (void)value;           /* TODO: Use for z-score calculation */
+    
     if (!filter || !result) {
         return -1;
     }
