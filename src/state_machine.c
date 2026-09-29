@@ -100,12 +100,14 @@ int state_machine_get_state(state_machine_t state_machine,
     state_machine_internal_t *sm = (state_machine_internal_t *)state_machine;
     
     strncpy(state->sensor_id, sm->sensor_id, sizeof(state->sensor_id) - 1);
+    state->sensor_id[sizeof(state->sensor_id) - 1] = '\0';  /* Ensure null termination */
     state->health = sm->current_state;
     state->fault_type = sm->fault_type;
     state->confidence = sm->confidence;
     state->persistent_count = sm->persistence_counter;
     state->last_update_timestamp = 0;  /* TODO: Track timestamp */
     strncpy(state->evidence, sm->evidence, sizeof(state->evidence) - 1);
+    state->evidence[sizeof(state->evidence) - 1] = '\0';  /* Ensure null termination */
     
     return 0;
 }
