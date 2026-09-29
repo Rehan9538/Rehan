@@ -189,7 +189,7 @@ jobs:
           cd build
           echo "=== Generating coverage data ==="
           lcov --directory . --capture --output-file coverage.info
-          lcov --remove coverage.info '/usr/*' --output-file coverage_filtered.info
+          lcov --remove coverage.info '/usr/*' --ignore-errors unused --output-file coverage_filtered.info
           echo "=== Coverage Summary ==="
           lcov --list coverage_filtered.info
 

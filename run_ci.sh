@@ -161,8 +161,8 @@ generate_coverage() {
     # Capture coverage data
     lcov --directory . --capture --output-file coverage.info || return 1
     
-    # Remove system paths
-    lcov --remove coverage.info '/usr/*' --output-file coverage_filtered.info || return 1
+    # Remove system paths (ignore-errors unused handles case where no system files in coverage)
+    lcov --remove coverage.info '/usr/*' --ignore-errors unused --output-file coverage_filtered.info || return 1
     
     # Display summary
     echo ""
