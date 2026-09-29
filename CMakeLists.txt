@@ -72,6 +72,7 @@ if(ENABLE_TESTS)
     endif()
     
     set(TEST_SOURCES
+        tests/test_runner.c
         tests/test_freeze_detection.c
         tests/test_drift_detection.c
         tests/test_outlier_filter.c

@@ -19,12 +19,14 @@
  * Test Fixtures
  * ============================================================================ */
 
-static void freeze_test_setup(void) {
+static int freeze_test_setup(void) {
     /* TODO: Initialize test fixtures */
+    return 0;
 }
 
-static void freeze_test_cleanup(void) {
+static int freeze_test_cleanup(void) {
     /* TODO: Clean up test fixtures */
+    return 0;
 }
 
 /* ============================================================================

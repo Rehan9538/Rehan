@@ -146,8 +146,6 @@ int mqtt_reporter_reconnect(mqtt_reporter_t reporter) {
         return -1;
     }
     
-    mqtt_reporter_internal_t *r = (mqtt_reporter_internal_t *)reporter;
-    
     /* TODO: Attempt connection to broker */
     
     return 0;

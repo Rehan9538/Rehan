@@ -12,8 +12,8 @@
 #include <CUnit/Basic.h>
 #include "mqtt_reporter.h"
 
-static void mqtt_test_setup(void) {}
-static void mqtt_test_cleanup(void) {}
+static int mqtt_test_setup(void) { return 0; }
+static int mqtt_test_cleanup(void) { return 0; }
 
 /**
  * MQTT_UT_001: MQTT - Fault Event Publishing

@@ -76,8 +76,9 @@ int state_machine_process_event(state_machine_t state_machine,
         return -1;
     }
     
-    state_machine_internal_t *sm = (state_machine_internal_t *)state_machine;
-    
+    (void)event;
+    (void)timestamp_ms;
+
     /* TODO: Implement state transitions with hysteresis */
     /* HEALTHY + FAULT_DETECTED -> SUSPECT (after persistence_ms) */
     /* SUSPECT + FAULT_DETECTED -> FAULTY (after persistence_ms) */

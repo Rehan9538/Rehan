@@ -189,7 +189,7 @@ jobs:
           cd build
           echo "=== Generating coverage data ==="
           lcov --directory . --capture --output-file coverage.info
-          lcov --remove coverage.info '/usr/*' --output-file coverage_filtered.info
+          lcov --remove coverage.info '/usr/*' --ignore-errors unused --output-file coverage_filtered.info
           echo "=== Coverage Summary ==="
           lcov --list coverage_filtered.info
 
@@ -197,14 +197,14 @@ jobs:
         id: coverage_calc
         run: |
           cd build
-          COVERAGE=$(lcov --list coverage_filtered.info | tail -1 | awk '{print $2}' | sed 's/%//')
+          COVERAGE=$(lcov --summary coverage_filtered.info | awk '/lines/ {gsub("%", "", $2); print $2}')
           echo "coverage_percent=$COVERAGE" >> $GITHUB_OUTPUT
           echo "📊 Code Coverage: ${COVERAGE}%"
 
       - name: Check coverage threshold
         run: |
           cd build
-          COVERAGE=$(lcov --list coverage_filtered.info | tail -1 | awk '{print $2}' | sed 's/%//')
+          COVERAGE=$(lcov --summary coverage_filtered.info | awk '/lines/ {gsub("%", "", $2); print $2}')
           THRESHOLD=${{ env.COVERAGE_THRESHOLD }}
           echo "Coverage: ${COVERAGE}%"
           echo "Threshold: ${THRESHOLD}%"
