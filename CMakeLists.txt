@@ -57,8 +57,19 @@ target_include_directories(bms_diagnostics PUBLIC include)
 if(ENABLE_TESTS)
     enable_testing()
     
-    # Find CUnit
-    find_package(CUnit REQUIRED)
+    # Find CUnit using pkg-config (more reliable on Linux)
+    find_package(PkgConfig QUIET)
+    if(PkgConfig_FOUND)
+        pkg_check_modules(CUNIT cunit)
+    endif()
+    
+    # Fallback: manual library detection
+    if(NOT CUNIT_FOUND)
+        find_library(CUNIT_LIBRARY cunit REQUIRED)
+        find_path(CUNIT_INCLUDE_DIR CUnit/CUnit.h REQUIRED)
+        set(CUNIT_LIBRARIES ${CUNIT_LIBRARY})
+        set(CUNIT_INCLUDE_DIRS ${CUNIT_INCLUDE_DIR})
+    endif()
     
     set(TEST_SOURCES
         tests/test_freeze_detection.c
@@ -73,8 +84,8 @@ if(ENABLE_TESTS)
     
     # Create test executable
     add_executable(bms_diagnostic_tests ${TEST_SOURCES})
-    target_link_libraries(bms_diagnostic_tests PRIVATE bms_diagnostics CUnit::CUnit)
-    target_include_directories(bms_diagnostic_tests PRIVATE include)
+    target_link_libraries(bms_diagnostic_tests PRIVATE bms_diagnostics ${CUNIT_LIBRARIES})
+    target_include_directories(bms_diagnostic_tests PRIVATE include ${CUNIT_INCLUDE_DIRS})
     
     # Add tests
     add_test(NAME FREEZE_UT_001 COMMAND bms_diagnostic_tests freeze_001)
